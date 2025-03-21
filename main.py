@@ -18,10 +18,10 @@ freq = {
     "B":   [30.87, 61.74, 123.47, 246.94, 493.88, 987.77, 1975.53, 3951.07]
 }
 
-#  start a ѕynth
+#  to start the ѕynth
 b = M.core.Being()
 
-#  set its parameters using sequences representing the song we're modeling
+#  set the parameters using sequences representing the song we're modeling
 b.fv_ = [1]  # vibrato frequency
 b.nu_ = [0]  # vibrato depth in semitones (maximum deviation of pitch)
 b.d_ = [1/2] * 5 + [1/4] * 2+ [1/2] + [3/2,3/2] + [1/4, 1/4, 1/2, 1/2] + [1/2, 1/4, 1/2, 1/2, 1, 1, 1/2, 1/2, 1/2, 1/4, 1/2, 1/2]  # rhythm of mhall
@@ -33,12 +33,12 @@ b.f_ = [freq['Ab'][4],freq['Bb'][4],freq['C'][4],freq['Eb'][4],freq['F'][4],freq
 #  render the wavfile
 b.render(28, 'kids.wav')
 
-#returns the next note based on given discrete distn
+#return the next note based on given discrete distn
 def getNext(probs):
     np.random.seed()
     return np.random.choice(list(probs.keys()), 1, probs.values())[0]
 
-#tally transitions
+#tally transitions 
 
 tallies = defaultdict(lambda: defaultdict(float))
 prev = b.f_[0]
@@ -71,7 +71,6 @@ for note in range(24):
     current = getNext(tallies[current])
     song.append(current)
 
-print (song) #view song data in console for sanity check
 
 #translate from list of numbers to song of notes
 new_song = M.core.Being()
@@ -79,8 +78,8 @@ new_song = M.core.Being()
 # 2) set its parameters using sequences representing the song we're modeling
 new_song.fv_ = [1]  # vibrato frequency
 new_song.nu_ = [0]  # vibrato depth in semitones (maximum deviation of pitch)
-new_song.d_ = b.d_ # same rhythm as MHALL
-new_song.f_ = song # our new notes!
+new_song.d_ = b.d_ 
+new_song.f_ = song # new notes!
 
-# 3) render the wavfile
+# 3) render wavfile
 new_song.render(25, 'new_kids.wav')
