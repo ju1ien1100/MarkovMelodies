@@ -2,7 +2,7 @@ import music.music as M
 from collections import defaultdict
 import numpy as np
 
-# How would you describe the following data structure?
+
 # Note for reference that we can have  freq.keys() and freq.values(), as lists!!
 freq = {
     "C": [16.35, 32.70, 65.41, 130.81, 261.63, 523.25, 1046.50, 2093.00, 4186.01],
@@ -38,16 +38,15 @@ b.f_ = [freq['E'][4],freq['D'][4],freq['C'][4],freq['D'][4],freq['E'][4],freq['E
 b.render(25, 'mhall.wav')
 
 # takes a probability distribution (row of the transition table) and returns the next note
-# this took some googling. We'll discuss in more detail after we USE it.
 def getNext(probs):
     np.random.seed()
     return np.random.choice(list(probs.keys()), 1, probs.values())[0]
 
 # tally up the transitions from one note to another
-tallies = defaultdict(lambda: defaultdict(float)) # unpack this! Dictionary of dictionary of floats.
-# Why not just a regular old dict()?
+tallies = defaultdict(lambda: defaultdict(float))
 
-# write the code to populate tallies!! (use b.f_)
+
+
 
 # convert tallies table to probability distributions, one per row (think about what you have to do, first)
 
@@ -59,7 +58,6 @@ init = dict(zip(tallies.keys(),[1/len(tallies)] * len(tallies)))
 # generate new sequence of notes
 song = [] # set up a song to build
 
-# Your code here! use the getNext  function--what parameter does it expect? how do you specify that parameter?
 
 #translate from list of numbers to song of notes
 new_song = M.core.Being()
